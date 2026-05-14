@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pedro RG · Android Developer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Roboto+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Round" rel="stylesheet" />
+  <style>
+    :root {
+      --primary: #1a73e8;
+      --primary-dark: #1557b0;
+      --surface: #ffffff;
+      --surface-variant: #f8f9fa;
+      --on-surface: #202124;
+      --on-surface-variant: #5f6368;
+      --outline: #dadce0;
+      --shadow-1: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+      --shadow-2: 0 3px 6px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.12);
+      --shadow-3: 0 10px 20px rgba(0,0,0,0.15), 0 3px 6px rgba(0,0,0,0.10);
+      --radius: 16px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      background: var(--surface-variant);
+      color: var(--on-surface);
+      min-height: 100vh;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 64px 24px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(255,255,255,0.08) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(255,255,255,0.06) 0%, transparent 50%);
+    }
+
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 20px;
+      border: 3px solid rgba(255,255,255,0.4);
+      position: relative;
+    }
+
+    .avatar span {
+      font-size: 36px;
+      font-weight: 700;
+      letter-spacing: -1px;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 500;
+      letter-spacing: 0.5px;
+      position: relative;
+    }
+
+    header p {
+      font-size: 1rem;
+      opacity: 0.85;
+      margin-top: 8px;
+      font-weight: 300;
+      position: relative;
+    }
+
+    .badge-play {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 20px;
+      padding: 6px 14px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      margin-top: 16px;
+      text-decoration: none;
+      color: #fff;
+      transition: background 0.2s;
+      position: relative;
+    }
+
+    .badge-play:hover {
+      background: rgba(255,255,255,0.25);
+    }
+
+    .badge-play svg {
+      width: 16px;
+      height: 16px;
+      fill: #fff;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    .section-title {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      color: var(--on-surface-variant);
+      margin-bottom: 24px;
+    }
+
+    /* ── APP GRID ── */
+    .apps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 20px;
+    }
+
+    .app-card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-1);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: box-shadow 0.25s, transform 0.25s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .app-card:hover {
+      box-shadow: var(--shadow-3);
+      transform: translateY(-4px);
+    }
+
+    .app-card:active {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-2);
+    }
+
+    /* Banner / feature graphic */
+    .card-banner {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+      display: block;
+    }
+
+    .card-banner-placeholder {
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .card-body {
+      padding: 16px 20px 20px;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .app-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      flex-shrink: 0;
+      object-fit: cover;
+      box-shadow: var(--shadow-1);
+    }
+
+    .app-icon-placeholder {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      box-shadow: var(--shadow-1);
+    }
+
+    .app-icon-placeholder span {
+      font-size: 24px;
+    }
+
+    .app-title {
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    .app-developer {
+      font-size: 0.78rem;
+      color: var(--on-surface-variant);
+    }
+
+    .app-description {
+      font-size: 0.88rem;
+      color: var(--on-surface-variant);
+      line-height: 1.55;
+    }
+
+    .card-footer {
+      padding: 12px 20px 16px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .btn-play {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-family: 'Roboto', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, box-shadow 0.2s;
+      box-shadow: 0 2px 6px rgba(26,115,232,0.35);
+    }
+
+    .btn-play:hover {
+      background: var(--primary-dark);
+      box-shadow: 0 4px 10px rgba(26,115,232,0.45);
+    }
+
+    .btn-play svg {
+      width: 14px;
+      height: 14px;
+      fill: #fff;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 0.8rem;
+      color: var(--on-surface-variant);
+      border-top: 1px solid var(--outline);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header {
+        padding: 48px 16px 36px;
+      }
+
+      header h1 {
+        font-size: 1.5rem;
+      }
+
+      main {
+        padding: 32px 16px 60px;
+      }
+
+      .apps-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="avatar"><span>PR</span></div>
+    <h1>Pedro RG</h1>
+    <p>Android Developer · Google Play</p>
+    <a class="badge-play" href="https://play.google.com/store/apps/developer?id=Pedro+RG" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3.18 23.76a2 2 0 0 0 2.04-.19l13.07-7.55-3.3-3.3-11.81 11.04zm16.62-13.38L16.44 8.5 13 12l3.44 3.5 3.36-1.94a1.99 1.99 0 0 0 0-3.18zM2 1.06a2 2 0 0 0-.94 1.7v18.48A2 2 0 0 0 2 22.94L14.06 12 2 1.06zm10.88 10.1L3.22.24A2 2 0 0 0 2 .06L14.06 12l-1.18-0.84z"/>
+      </svg>
+      Ver en Google Play
+    </a>
+  </header>
+
+  <!-- MAIN -->
+  <main>
+    <p class="section-title">Mis aplicaciones</p>
+
+    <div class="apps-grid">
+
+      <!-- APP 1: En Garantía -->
+      <a class="app-card" href="https://play.google.com/store/apps/details?id=com.engarantia.app" target="_blank" rel="noopener">
+        <div class="card-banner-placeholder" style="background: linear-gradient(135deg, #1a73e8 0%, #0d47a1 100%);">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="rgba(255,255,255,0.3)" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4zm-2 16l-4-4 1.41-1.41L10 14.17l6.59-6.59L18 9l-8 8z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <div class="app-icon-placeholder" style="background: #1a73e8;">
+              <span>🛡️</span>
+            </div>
+            <div>
+              <div class="app-title">En Garantía · Tus garantías</div>
+              <div class="app-developer">Pedro RG</div>
+            </div>
+          </div>
+          <p class="app-description">Gestiona todas tus garantías de productos en un solo lugar. Nunca más pierdas una garantía por descuido: recibe recordatorios y ten todo bajo control.</p>
+        </div>
+        <div class="card-footer">
+          <span class="btn-play">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            Ver en Play Store
+          </span>
+        </div>
+      </a>
+
+      <!-- APP 2: WishKeep -->
+      <a class="app-card" href="https://play.google.com/store/apps/details?id=com.wishkeep.wishkeep_app" target="_blank" rel="noopener">
+        <div class="card-banner-placeholder" style="background: linear-gradient(135deg, #1a3a2e 0%, #0d2b20 100%);">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="rgba(255,255,255,0.3)" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <div class="app-icon-placeholder" style="background: #1b5e20;">
+              <span>⭐</span>
+            </div>
+            <div>
+              <div class="app-title">WishKeep - Lista de deseos</div>
+              <div class="app-developer">Pedro RG</div>
+            </div>
+          </div>
+          <p class="app-description">Crea y comparte listas de deseos y regalos con tus amigos y familia. Organiza tus colecciones y nunca más te olvides de lo que quieres regalar o recibir.</p>
+        </div>
+        <div class="card-footer">
+          <span class="btn-play">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            Ver en Play Store
+          </span>
+        </div>
+      </a>
+
+      <!-- APP 3: AR Trace Draw -->
+      <a class="app-card" href="https://play.google.com/store/apps/details?id=com.artracedraw.app" target="_blank" rel="noopener">
+        <div class="card-banner-placeholder" style="background: linear-gradient(135deg, #7b1fa2 0%, #e91e63 100%);">
+          <svg width="80" height="80" viewBox="0 0 24 24" fill="rgba(255,255,255,0.3)" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 3a9 9 0 1 0 0 18A9 9 0 0 0 12 3zM7 17s1-5 5-5 5 5 5 5H7zm5-7a2 2 0 1 1 0-4 2 2 0 0 1 0 4z"/>
+            <path d="M3 7h2v2H3zm0 8h2v2H3zm16-8h2v2h-2zm0 8h2v2h-2zM7 3v2H5V3zm10 0v2h-2V3zM7 19v2H5v-2zm10 0v2h-2v-2z"/>
+          </svg>
+        </div>
+        <div class="card-body">
+          <div class="card-meta">
+            <div class="app-icon-placeholder" style="background: linear-gradient(135deg, #7b1fa2, #e91e63);">
+              <span>✏️</span>
+            </div>
+            <div>
+              <div class="app-title">AR Trace Draw – Calca y Dibuja</div>
+              <div class="app-developer">Pedro RG</div>
+            </div>
+          </div>
+          <p class="app-description">Dibuja utilizando la cámara de tu móvil como guía. Usa la realidad aumentada para calcar y trazar imágenes de forma fácil y precisa.</p>
+        </div>
+        <div class="card-footer">
+          <span class="btn-play">
+            <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5v14l11-7z"/>
+            </svg>
+            Ver en Play Store
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© 2025 Pedro RG · Desarrollador Android · Hecho con ❤️ en España</p>
+  </footer>
+
+</body>
+</html>
